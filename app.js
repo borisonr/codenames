@@ -18,15 +18,15 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 
 const io = socketIo(server);
 
-const teams = ["red", "blue"];
-const nextTeam = { red: "blue", blue: "red" };
+const teams = ["pink", "teal"];
+const nextTeam = { pink: "teal", teal: "pink" };
 
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
   room.board = getBoard(startingTeam);
   room.score = {
-    red: startingTeam === "red" ? 9 : 8,
-    blue: startingTeam === "red" ? 8 : 9,
+    pink: startingTeam === "pink" ? 9 : 8,
+    teal: startingTeam === "pink" ? 8 : 9,
   };
   room.currentTurn = startingTeam;
 };
@@ -55,14 +55,14 @@ io.on("connection", (socket) => {
       rooms[room].winner = nextTeam[rooms[room].currentTurn];
       io.to(room).emit("gameOver", rooms[room]);
     } else {
-      if (guessedWord.category === "red") {
-        rooms[room].score.red--;
+      if (guessedWord.category === "pink") {
+        rooms[room].score.pink--;
       }
-      if (guessedWord.category === "blue") {
-        rooms[room].score.blue--;
+      if (guessedWord.category === "teal") {
+        rooms[room].score.teal--;
       }
-      if (rooms[room].score.red === 0 || rooms[room].score.blue === 0) {
-        rooms[room].winner = rooms[room].score.red === 0 ? "red" : "blue";
+      if (rooms[room].score.pink === 0 || rooms[room].score.teal === 0) {
+        rooms[room].winner = rooms[room].score.pink === 0 ? "pink" : "teal";
         io.to(room).emit("gameOver", rooms[room]);
       } else {
         io.to(room).emit("wordGuessed", rooms[room]);

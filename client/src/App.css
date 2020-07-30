@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-pinkuced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
@@ -49,12 +49,12 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.red {
-  color: red;
+.pink {
+  color: pink;
 }
 
-.blue {
-  color: blue;
+.teal {
+  color: teal;
 }
 
 .neutral {
@@ -65,12 +65,12 @@
   background-color: darkgrey;
 }
 
-.red-card {
-  background-color: red;
+.pink-card {
+  background-color: pink;
 }
 
-.blue-card {
-  background-color: blue;
+.teal-card {
+  background-color: teal;
 }
 
 .neutral-card {

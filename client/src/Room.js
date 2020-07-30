@@ -59,8 +59,8 @@ const Room = () => {
       <p>Send this link to friends: {window.location.href}</p>
 
       <p>
-        <span className="red">{score.red}</span>-
-        <span className="blue">{score.blue}</span>
+        <span className="pink">{score.pink}</span>-
+        <span className="teal">{score.teal}</span>
       </p>
       {gameOver ? (
         <p>{winner} wins</p>

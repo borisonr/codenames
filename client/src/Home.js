@@ -13,7 +13,7 @@ const Home = () => {
       <header className="App-header">
         <h1>Codenames</h1>
         <p>
-          Play Codenames online across multiple devices on a shared board. To
+          Play Codenames online across multiple devices on a shapink board. To
           create a new game or join an existing game, enter a game identifier
           and click 'GO'.
         </p>
