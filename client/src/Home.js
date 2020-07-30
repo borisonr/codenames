@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import socketIOClient from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import "./App.css";
-const ENDPOINT = "http://127.0.0.1:4001";
 
 const Home = () => {
   const [roomName, setRoomName] = useState("");
   const history = useHistory();
   const createRoom = (room) => {
-    const socket = socketIOClient(ENDPOINT);
-    socket.emit("joinRoom", room);
     history.push(room);
   };
   return (

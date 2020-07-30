@@ -4,7 +4,7 @@ import "./App.css";
 const Card = ({ word, spymaster, category }) => {
   const wordClassName = spymaster ? category : "";
   return (
-    <div className="card">
+    <div className="card" key={word}>
       <p className={wordClassName}>{word}</p>
     </div>
   );

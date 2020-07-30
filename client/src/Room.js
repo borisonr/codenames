@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
 import Game from "./Game";
-
-import { getBoardMap } from "./helpers";
 const ENDPOINT = "http://127.0.0.1:4001";
 
 const Room = () => {
   const room = window.location.pathname.slice(1);
   const [role, setRole] = useState("player");
   const [boardMap, setBoardMap] = useState([]);
-  const teams = ["red", "blue"];
-  let startingTeam = teams[Math.floor(Math.random())];
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
     socket.emit("joinRoom", room);
-    setBoardMap(getBoardMap(startingTeam === "red"));
+    socket.on("newPlayer", ({ boardMap, players, score }) => {
+      setBoardMap(boardMap);
+    });
   }, []);
-  console.log(boardMap);
   return (
     <div className="App">
       <h1>{room}</h1>
