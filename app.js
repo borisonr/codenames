@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const { getBoard } = require("./helpers");
+const csv = require("csv-parser");
+const fs = require("fs");
 var path = require("path");
 var clientPath = path.join(__dirname, "./client");
 
@@ -17,13 +19,24 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 const io = socketIo(server);
+let WordOptions = [];
+
+// get words
+fs.createReadStream("./wordbank.csv")
+  .pipe(csv())
+  .on("data", ({ word, url }) => {
+    WordOptions.push({ word, url });
+  })
+  .on("end", () => {
+    console.log("CSV file successfully processed");
+  });
 
 const teams = ["pink", "teal"];
 const nextTeam = { pink: "teal", teal: "pink" };
 
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
-  room.board = getBoard(startingTeam);
+  room.board = getBoard(startingTeam, WordOptions);
   room.score = {
     pink: startingTeam === "pink" ? 9 : 8,
     teal: startingTeam === "pink" ? 8 : 9,
