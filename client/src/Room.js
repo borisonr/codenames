@@ -8,18 +8,39 @@ const Room = () => {
   const room = window.location.pathname.slice(1);
   const [role, setRole] = useState("player");
   const [boardMap, setBoardMap] = useState([]);
+  const [score, setScore] = useState({});
+  const [socket, setSocket] = useState(undefined);
+  const [currentTurn, setCurrentTurn] = useState(score.startingTeam);
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
+    setSocket(socket);
     socket.emit("joinRoom", room);
-    socket.on("newPlayer", ({ boardMap, players, score }) => {
+    socket.on("newPlayer", ({ boardMap, currentTurn, score }) => {
       setBoardMap(boardMap);
+      setScore(score);
+      setCurrentTurn(currentTurn);
     });
+    socket.on("newTurn", ({ boardMap, currentTurn, score }) => {
+      console.log("newturn", currentTurn);
+      setCurrentTurn(currentTurn);
+    });
+    return () => socket.disconnect();
   }, []);
+
+  const endTurn = () => {
+    socket.emit("endTurn", room);
+  };
   return (
     <div className="App">
       <h1>{room}</h1>
       <p>Send this link to friends: {window.location.href}</p>
 
+      <p>
+        <span className="red">{score.red}</span>-
+        <span className="blue">{score.blue}</span>
+      </p>
+      <p className={currentTurn}>{currentTurn}'s turn</p>
+      <button onClick={endTurn}>End {currentTurn}'s turn</button>
       <Game boardMap={boardMap} role={role} />
 
       <input
