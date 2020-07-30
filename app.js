@@ -52,6 +52,7 @@ io.on("connection", (socket) => {
     const guessedWord = rooms[room].board[index];
     guessedWord.guessed = true;
     if (guessedWord.category === "bomb") {
+      rooms[room].winner = nextTeam[rooms[room].currentTurn];
       io.to(room).emit("gameOver", rooms[room]);
     } else {
       if (guessedWord.category === "red") {
@@ -60,7 +61,12 @@ io.on("connection", (socket) => {
       if (guessedWord.category === "blue") {
         rooms[room].score.blue--;
       }
-      io.to(room).emit("wordGuessed", rooms[room]);
+      if (rooms[room].score.red === 0 || rooms[room].score.blue === 0) {
+        rooms[room].winner = rooms[room].score.red === 0 ? "red" : "blue";
+        io.to(room).emit("gameOver", rooms[room]);
+      } else {
+        io.to(room).emit("wordGuessed", rooms[room]);
+      }
     }
   });
 
