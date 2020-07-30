@@ -1,4 +1,5 @@
 const { shuffle } = require("lodash");
+const words = require("./words");
 
 const getOptions = (redStart) => {
   return [
@@ -35,4 +36,13 @@ const getBoardMap = (redStart) => {
   return shuffle(options);
 };
 
-module.exports = getBoardMap;
+const getBoard = (startingTeam) => {
+  const boardMap = getBoardMap(startingTeam === "red");
+  return words.map((word, i) => ({
+    word,
+    category: boardMap[i],
+    guessed: false,
+  }));
+};
+
+module.exports = { getBoard };

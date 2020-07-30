@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const getBoardMap = require("./helpers");
+const { getBoard } = require("./helpers");
 var path = require("path");
 var clientPath = path.join(__dirname, "./client");
 
@@ -19,13 +19,16 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 const io = socketIo(server);
 
 const teams = ["red", "blue"];
+const nextTeam = { red: "blue", blue: "red" };
+
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
-  room.boardMap = getBoardMap(startingTeam === "red");
+  room.board = getBoard(startingTeam);
   room.score = {
     red: startingTeam === "red" ? 9 : 8,
     blue: startingTeam === "red" ? 8 : 9,
   };
+  room.currentTurn = startingTeam;
 };
 
 const rooms = {};
@@ -43,6 +46,27 @@ io.on("connection", (socket) => {
     var player = { room: room, socketId: socket.id };
     rooms[room].players.push(player);
     io.to(room).emit("newPlayer", rooms[room]);
+  });
+
+  socket.on("guessWord", function (index, room) {
+    const guessedWord = rooms[room].board[index];
+    guessedWord.guessed = true;
+    if (guessedWord.category === "bomb") {
+      io.to(room).emit("gameOver", rooms[room]);
+    } else {
+      if (guessedWord.category === "red") {
+        rooms[room].score.red--;
+      }
+      if (guessedWord.category === "blue") {
+        rooms[room].score.blue--;
+      }
+      io.to(room).emit("wordGuessed", rooms[room]);
+    }
+  });
+
+  socket.on("endTurn", function (room) {
+    rooms[room].currentTurn = nextTeam[rooms[room].currentTurn];
+    io.to(room).emit("newTurn", rooms[room]);
   });
 
   socket.on("newGame", function (room) {
