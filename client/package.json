@@ -12,6 +12,7 @@
     "react-scripts": "3.4.1",
     "socket.io-client": "^2.3.0"
   },
+  "proxy": "http://localhost:4041",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
