@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { words } from "./words";
 import Card from "./Card";
 import "./App.css";
 
-const Game = ({ boardMap, role }) => {
+const Game = ({ board, role, socket, room }) => {
+  const guessWord = (word) => {
+    socket.emit("guessWord", word, room);
+  };
   return (
     <div className="board">
-      {words.map((word, i) => (
+      {board.map((card, i) => (
         <Card
-          word={word}
+          card={card}
           spymaster={role === "spymaster"}
-          category={boardMap[i]}
+          guessWord={() => guessWord(card.word)}
         />
       ))}
     </div>

@@ -7,7 +7,7 @@ const ENDPOINT = "http://127.0.0.1:4001";
 const Room = () => {
   const room = window.location.pathname.slice(1);
   const [role, setRole] = useState("player");
-  const [boardMap, setBoardMap] = useState([]);
+  const [board, setBoard] = useState([]);
   const [score, setScore] = useState({});
   const [socket, setSocket] = useState(undefined);
   const [currentTurn, setCurrentTurn] = useState(score.startingTeam);
@@ -15,12 +15,12 @@ const Room = () => {
     const socket = socketIOClient(ENDPOINT);
     setSocket(socket);
     socket.emit("joinRoom", room);
-    socket.on("newPlayer", ({ boardMap, currentTurn, score }) => {
-      setBoardMap(boardMap);
+    socket.on("newPlayer", ({ board, currentTurn, score }) => {
+      setBoard(board);
       setScore(score);
       setCurrentTurn(currentTurn);
     });
-    socket.on("newTurn", ({ boardMap, currentTurn, score }) => {
+    socket.on("newTurn", ({ board, currentTurn, score }) => {
       console.log("newturn", currentTurn);
       setCurrentTurn(currentTurn);
     });
@@ -41,7 +41,7 @@ const Room = () => {
       </p>
       <p className={currentTurn}>{currentTurn}'s turn</p>
       <button onClick={endTurn}>End {currentTurn}'s turn</button>
-      <Game boardMap={boardMap} role={role} />
+      <Game board={board} role={role} socket={socket} room={room} />
 
       <input
         name="player"
