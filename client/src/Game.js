@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./App.css";
 
-const Game = ({ board, role, socket, room }) => {
+const Game = ({ board, role, socket, room, gameOver }) => {
   const guessWord = (index) => {
     socket.emit("guessWord", index, room);
   };
@@ -14,6 +14,7 @@ const Game = ({ board, role, socket, room }) => {
           card={card}
           spymaster={role === "spymaster"}
           guessWord={() => guessWord(i)}
+          gameOver={gameOver}
         />
       ))}
     </div>
