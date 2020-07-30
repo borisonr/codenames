@@ -52,3 +52,15 @@
 .red {
   color: red;
 }
+
+.blue {
+  color: blue;
+}
+
+.neutral {
+  color: black;
+}
+
+.bomb {
+  background-color: darkgrey;
+}
