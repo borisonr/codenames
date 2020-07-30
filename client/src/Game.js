@@ -3,16 +3,17 @@ import Card from "./Card";
 import "./App.css";
 
 const Game = ({ board, role, socket, room }) => {
-  const guessWord = (word) => {
-    socket.emit("guessWord", word, room);
+  const guessWord = (index) => {
+    socket.emit("guessWord", index, room);
   };
   return (
     <div className="board">
       {board.map((card, i) => (
         <Card
+          key={card.word}
           card={card}
           spymaster={role === "spymaster"}
-          guessWord={() => guessWord(card.word)}
+          guessWord={() => guessWord(i)}
         />
       ))}
     </div>

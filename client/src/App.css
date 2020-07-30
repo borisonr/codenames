@@ -64,3 +64,20 @@
 .bomb {
   background-color: darkgrey;
 }
+
+.red-card {
+  background-color: red;
+}
+
+.blue-card {
+  background-color: blue;
+}
+
+.neutral-card {
+  background-color: yellow;
+}
+
+.bomb-card {
+  background-color: black;
+  color: white;
+}

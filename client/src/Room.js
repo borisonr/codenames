@@ -21,8 +21,15 @@ const Room = () => {
       setCurrentTurn(currentTurn);
     });
     socket.on("newTurn", ({ board, currentTurn, score }) => {
-      console.log("newturn", currentTurn);
       setCurrentTurn(currentTurn);
+    });
+    socket.on("wordGuessed", ({ board, currentTurn, score }) => {
+      setScore(score);
+      setBoard(board);
+    });
+
+    socket.on("gameOver", ({ board, currentTurn, score }) => {
+      //end game
     });
     return () => socket.disconnect();
   }, []);

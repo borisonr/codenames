@@ -3,8 +3,9 @@ import "./App.css";
 
 const Card = ({ card, spymaster, guessWord }) => {
   const wordClassName = spymaster ? card.category : "";
+  const cardClassName = card.guessed ? `${card.category}-card` : "card";
   return (
-    <div className="card" key={card.word} onClick={guessWord}>
+    <div onClick={guessWord} className={cardClassName}>
       <p className={wordClassName}>{card.word}</p>
     </div>
   );
