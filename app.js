@@ -78,6 +78,9 @@ io.on("connection", (socket) => {
         rooms[room].winner = rooms[room].score.pink === 0 ? "pink" : "teal";
         io.to(room).emit("gameOver", rooms[room]);
       } else {
+        if (guessedWord.category !== rooms[room].currentTurn) {
+          rooms[room].currentTurn = nextTeam[rooms[room].currentTurn];
+        }
         io.to(room).emit("wordGuessed", rooms[room]);
       }
     }

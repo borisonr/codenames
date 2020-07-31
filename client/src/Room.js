@@ -31,9 +31,10 @@ const Room = () => {
     socket.on("newTurn", ({ currentTurn }) => {
       setCurrentTurn(currentTurn);
     });
-    socket.on("wordGuessed", ({ board, score }) => {
+    socket.on("wordGuessed", ({ board, currentTurn, score }) => {
       setScore(score);
       setBoard(board);
+      setCurrentTurn(currentTurn);
     });
 
     socket.on("gameOver", ({ board, score, winner }) => {
