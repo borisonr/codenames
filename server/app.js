@@ -98,6 +98,6 @@ io.on("connection", (socket) => {
 
   socket.on("newGame", function (room) {
     startGame(rooms[room]);
-    io.to(room).emit("newGame");
+    io.to(room).emit("newGame", rooms[room]);
   });
 });
