@@ -12,7 +12,10 @@ const Home = () => {
     <div className="App">
       <header className="App-header">
         <h1>Codenames</h1>
-        {/* <img className="App-logo" src="./logo.svg" /> */}
+        <img
+          className="App-logo"
+          src="https://raw.githubusercontent.com/borisonr/codenames/master/client/src/logo_w.png"
+        />
         <p>
           Play Codenames online across multiple devices on a shapink board. To
           create a new game or join an existing game, enter a game identifier
