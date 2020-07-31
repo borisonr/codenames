@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
 import Game from "./Game";
-const ENDPOINT = "http://127.0.0.1:4001";
+const ENDPOINT = "https://codecademynames.herokuapp.com/";
 
 const Room = () => {
   const room = window.location.pathname.slice(1);
