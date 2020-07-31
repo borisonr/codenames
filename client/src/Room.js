@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
 import Game from "./Game";
-const ENDPOINT = "http://127.0.0.1:4001";
+const ENDPOINT = "https://codecademynames.herokuapp.com/";
 
 const Room = () => {
   const room = window.location.pathname.slice(1);
@@ -67,11 +67,13 @@ const Room = () => {
       {gameOver ? (
         <p>{winner} wins</p>
       ) : (
-          <>
-            <p className={currentTurn}>{currentTurn}'s turn</p>
-            <button class="bigbutton" onClick={endTurn}>End {currentTurn}'s turn</button>
-          </>
-        )}
+        <>
+          <p className={currentTurn}>{currentTurn}'s turn</p>
+          <button class="bigbutton" onClick={endTurn}>
+            End {currentTurn}'s turn
+          </button>
+        </>
+      )}
       <Game
         board={board}
         role={role}
@@ -99,7 +101,9 @@ const Room = () => {
       />
       <label htmlFor="spymaster">Spymaster</label>
 
-      <button class="bigbutton" onClick={startNewGame}>New Game</button>
+      <button class="bigbutton" onClick={startNewGame}>
+        New Game
+      </button>
     </div>
   );
 };

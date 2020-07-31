@@ -13,6 +13,7 @@ const Home = () => {
       <header className="App-header">
         <img
           className="App-logo"
+          alt="app logo"
           src="https://raw.githubusercontent.com/borisonr/codenames/master/client/src/logo_w.png"
         />
         <p>
