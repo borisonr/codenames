@@ -5,13 +5,18 @@ const { getBoard } = require("./helpers");
 const csv = require("csv-parser");
 const fs = require("fs");
 var path = require("path");
-var clientPath = path.join(__dirname, "./client");
+var clientPath = path.join(__dirname, "../client");
 
 const port = process.env.PORT || 4001;
 
 const app = express();
 app.use(express.static(path.join(clientPath, "build")));
-app.get("/*", function (req, res) {
+console.log(path.join(clientPath, "build"));
+app.use(express.static(path.join(clientPath, "public")));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(clientPath, "build", "index.html"));
+});
+app.get("/:room", function (req, res) {
   res.sendFile(path.join(clientPath, "build", "index.html"));
 });
 
@@ -93,6 +98,6 @@ io.on("connection", (socket) => {
 
   socket.on("newGame", function (room) {
     startGame(rooms[room]);
-    io.to(room).emit("newGame");
+    io.to(room).emit("newGame", rooms[room]);
   });
 });

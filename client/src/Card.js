@@ -12,7 +12,12 @@ const Card = ({ card, spymaster, guessWord, gameOver }) => {
       }
     >
       <p className={wordClassName}>{card.word}</p>
-    </button >
+      {(card.guessed || gameOver) && (
+        <a href={card.url} target="_blank" rel="noopener noreferrer">
+          Learn more
+        </a>
+      )}
+    </button>
   );
 };
 
