@@ -16,19 +16,24 @@ const Home = () => {
           alt="app logo"
           src="https://raw.githubusercontent.com/borisonr/codenames/main/client/src/logo_w.png"
         />
+        <p className="noMargin">
+          Play Codenames online across multiple devices.
+        </p>
         <p>
-          Play Codenames online across multiple devices on a shapink board. To
-          create a new game or join an existing game, enter a game identifier
-          and click 'GO'.
+          To create a new game or join an existing game, enter a Room Name and
+          click 'START'.
         </p>
         <form>
           <input
             placeholder="Room Name"
             type="text"
             value={roomName}
+            className="input"
             onChange={(e) => setRoomName(e.target.value)}
           />
-          <button onClick={() => createRoom(roomName)}>Go</button>
+          <button className="homeButton" onClick={() => createRoom(roomName)}>
+            START
+          </button>
         </form>
       </header>
     </div>
