@@ -8,10 +8,11 @@ const Card = ({ card, spymaster, guessWord, gameOver }) => {
     <button
       onClick={guessWord}
       className={cardClassName}
-      disabled={gameOver || spymaster}
+      disabled={gameOver || spymaster
+      }
     >
       <p className={wordClassName}>{card.word}</p>
-    </button>
+    </button >
   );
 };
 

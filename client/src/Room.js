@@ -55,7 +55,8 @@ const Room = () => {
 
   return (
     <div className="App">
-      <h1>{room}</h1>
+      <img src="./logo.svg" />
+      {/* <h1>{room}</h1> */}
       <p>Send this link to friends: {window.location.href}</p>
 
       <p>
@@ -65,11 +66,11 @@ const Room = () => {
       {gameOver ? (
         <p>{winner} wins</p>
       ) : (
-        <>
-          <p className={currentTurn}>{currentTurn}'s turn</p>
-          <button onClick={endTurn}>End {currentTurn}'s turn</button>
-        </>
-      )}
+          <>
+            <p className={currentTurn}>{currentTurn}'s turn</p>
+            <button class="bigbutton" onClick={endTurn}>End {currentTurn}'s turn</button>
+          </>
+        )}
       <Game
         board={board}
         role={role}
@@ -97,7 +98,7 @@ const Room = () => {
       />
       <label htmlFor="spymaster">Spymaster</label>
 
-      <button onClick={startNewGame}>New Game</button>
+      <button class="bigbutton" Click={startNewGame}>New Game</button>
     </div>
   );
 };
