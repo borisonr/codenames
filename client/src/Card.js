@@ -11,7 +11,7 @@ const Card = ({ card, spymaster, guessWord, gameOver }) => {
       key={card.word}
       onClick={guessWord}
       className={cardClassName}
-      disabled={gameOver || spymaster}
+      disabled={gameOver || spymaster || card.guessed}
     >
       <p className={wordClassName}>{card.word}</p>
       {gameOver && (

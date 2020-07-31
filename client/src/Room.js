@@ -69,10 +69,11 @@ const Room = () => {
         <>
           <p className={currentTurn}>GAME OVER</p>
           <p className={currentTurn}>{winner?.toUpperCase()} WINS</p>
-          <p>
+          <p className="noMarginBottom">
             Learn more about these terms on Codecademy by clicking on the cards'
             links
           </p>
+          <p className="noMargin">(review cards for pro users only)</p>
         </>
       ) : (
         <>

@@ -175,6 +175,10 @@
   margin: 0;
 }
 
+.noMarginBottom {
+  margin-bottom: 0;
+}
+
 .link {
   color: #6400e4;
   font-size: 12px;
