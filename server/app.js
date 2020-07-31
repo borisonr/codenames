@@ -40,6 +40,8 @@ const nextTeam = { pink: "teal", teal: "pink" };
 
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
+  rooms[room] = {};
+  room.players = [];
   room.board = getBoard(startingTeam, WordOptions);
   room.score = {
     pink: startingTeam === "pink" ? 9 : 8,
@@ -56,8 +58,6 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (room) => {
     roomName = room;
     if (!rooms[room]) {
-      rooms[room] = {};
-      rooms[room].players = [];
       startGame(rooms[room]);
     }
     socket.join(room);
