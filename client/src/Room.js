@@ -44,7 +44,7 @@ const Room = () => {
       setScore(score);
     });
     return () => socket.disconnect();
-  }, []);
+  }, [room]);
 
   const endTurn = () => {
     socket.emit("endTurn", room);
