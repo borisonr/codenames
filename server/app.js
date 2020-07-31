@@ -41,14 +41,14 @@ const nextTeam = { pink: "teal", teal: "pink" };
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
   rooms[room] = {};
-  room.players = [];
-  room.board = getBoard(startingTeam, WordOptions);
-  room.score = {
+  rooms[room].players = [];
+  rooms[room].board = getBoard(startingTeam, WordOptions);
+  rooms[room].score = {
     pink: startingTeam === "pink" ? 9 : 8,
     teal: startingTeam === "pink" ? 8 : 9,
   };
-  room.currentTurn = startingTeam;
-  room.winner = "";
+  rooms[room].currentTurn = startingTeam;
+  rooms[room].winner = "";
 };
 
 const rooms = {};
@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (room) => {
     roomName = room;
     if (!rooms[room]) {
-      startGame(rooms[room]);
+      startGame(room);
     }
     socket.join(room);
     var player = { room: room, socketId: socket.id };
@@ -97,7 +97,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("newGame", function (room) {
-    startGame(rooms[room]);
+    startGame(room);
     io.to(room).emit("newGame", rooms[room]);
   });
 });
