@@ -47,6 +47,7 @@ const startGame = (room) => {
     teal: startingTeam === "pink" ? 8 : 9,
   };
   room.currentTurn = startingTeam;
+  room.winner = "";
 };
 
 const rooms = {};
