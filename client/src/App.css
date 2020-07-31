@@ -8,11 +8,7 @@
   pointer-events: none;
 }
 
-<<<<<<< HEAD
 /* @media (prefers-reduced-motion: no-preference) {
-=======
-@media (prefers-pinkuced-motion: no-preference) {
->>>>>>> c29dede482852a2c6a9f94c222eb5fc53117f8de
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
@@ -58,7 +54,6 @@
   justify-items: center;
 }
 
-<<<<<<< HEAD
 .red {
   /* using as Brand Pink */
   color: #f288e9;
@@ -67,14 +62,6 @@
 .blue {
   /* using as Brand Teal */
   color: #4fe0b0;
-=======
-.pink {
-  color: pink;
-}
-
-.teal {
-  color: teal;
->>>>>>> c29dede482852a2c6a9f94c222eb5fc53117f8de
 }
 
 .neutral {
@@ -85,7 +72,6 @@
   background-color: darkgrey;
 }
 
-<<<<<<< HEAD
 .answered {
   text-transform: uppercase;
   font-size: 1em;
@@ -113,14 +99,6 @@
   margin: 6px;
   height: 90px;
   width: 135px;
-=======
-.pink-card {
-  background-color: pink;
-}
-
-.teal-card {
-  background-color: teal;
->>>>>>> c29dede482852a2c6a9f94c222eb5fc53117f8de
 }
 
 .neutral-card {
