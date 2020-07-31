@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const { getBoard } = require("./helpers");
+const csv = require("csv-parser");
+const fs = require("fs");
 var path = require("path");
 var clientPath = path.join(__dirname, "./client");
 
@@ -17,16 +19,27 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 const io = socketIo(server);
+let WordOptions = [];
 
-const teams = ["red", "blue"];
-const nextTeam = { red: "blue", blue: "red" };
+// get words
+fs.createReadStream("./wordbank.csv")
+  .pipe(csv())
+  .on("data", ({ word, url }) => {
+    WordOptions.push({ word, url });
+  })
+  .on("end", () => {
+    console.log("CSV file successfully processed");
+  });
+
+const teams = ["pink", "teal"];
+const nextTeam = { pink: "teal", teal: "pink" };
 
 const startGame = (room) => {
   let startingTeam = teams[Math.floor(Math.random())];
-  room.board = getBoard(startingTeam);
+  room.board = getBoard(startingTeam, WordOptions);
   room.score = {
-    red: startingTeam === "red" ? 9 : 8,
-    blue: startingTeam === "red" ? 8 : 9,
+    pink: startingTeam === "pink" ? 9 : 8,
+    teal: startingTeam === "pink" ? 8 : 9,
   };
   room.currentTurn = startingTeam;
 };
@@ -55,16 +68,19 @@ io.on("connection", (socket) => {
       rooms[room].winner = nextTeam[rooms[room].currentTurn];
       io.to(room).emit("gameOver", rooms[room]);
     } else {
-      if (guessedWord.category === "red") {
-        rooms[room].score.red--;
+      if (guessedWord.category === "pink") {
+        rooms[room].score.pink--;
       }
-      if (guessedWord.category === "blue") {
-        rooms[room].score.blue--;
+      if (guessedWord.category === "teal") {
+        rooms[room].score.teal--;
       }
-      if (rooms[room].score.red === 0 || rooms[room].score.blue === 0) {
-        rooms[room].winner = rooms[room].score.red === 0 ? "red" : "blue";
+      if (rooms[room].score.pink === 0 || rooms[room].score.teal === 0) {
+        rooms[room].winner = rooms[room].score.pink === 0 ? "pink" : "teal";
         io.to(room).emit("gameOver", rooms[room]);
       } else {
+        if (guessedWord.category !== rooms[room].currentTurn) {
+          rooms[room].currentTurn = nextTeam[rooms[room].currentTurn];
+        }
         io.to(room).emit("wordGuessed", rooms[room]);
       }
     }

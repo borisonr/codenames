@@ -1,24 +1,23 @@
 const { shuffle } = require("lodash");
-const words = require("./words");
 
-const getOptions = (redStart) => {
+const getOptions = (pinkStart) => {
   return [
-    "red",
-    "red",
-    "red",
-    "red",
-    "red",
-    "red",
-    "red",
-    "red",
-    "blue",
-    "blue",
-    "blue",
-    "blue",
-    "blue",
-    "blue",
-    "blue",
-    "blue",
+    "pink",
+    "pink",
+    "pink",
+    "pink",
+    "pink",
+    "pink",
+    "pink",
+    "pink",
+    "teal",
+    "teal",
+    "teal",
+    "teal",
+    "teal",
+    "teal",
+    "teal",
+    "teal",
     "bomb",
     "neutral",
     "neutral",
@@ -27,21 +26,26 @@ const getOptions = (redStart) => {
     "neutral",
     "neutral",
     "neutral",
-    redStart ? "red" : "blue",
+    pinkStart ? "pink" : "teal",
   ];
 };
 
-const getBoardMap = (redStart) => {
-  const options = getOptions(redStart);
+const getBoardMap = (pinkStart) => {
+  const options = getOptions(pinkStart);
   return shuffle(options);
 };
 
-const getBoard = (startingTeam) => {
-  const boardMap = getBoardMap(startingTeam === "red");
-  return words.map((word, i) => ({
+const getBoard = (startingTeam, WordOptions) => {
+  const boardMap = getBoardMap(startingTeam === "pink");
+  const words = [];
+  for (let i = 0; i <= 24; i++) {
+    words.push(WordOptions[Math.floor(Math.random() * WordOptions.length)]);
+  }
+  return words.map(({ word, url }, i) => ({
     word,
     category: boardMap[i],
     guessed: false,
+    url,
   }));
 };
 

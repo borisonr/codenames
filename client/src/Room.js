@@ -31,9 +31,10 @@ const Room = () => {
     socket.on("newTurn", ({ currentTurn }) => {
       setCurrentTurn(currentTurn);
     });
-    socket.on("wordGuessed", ({ board, score }) => {
+    socket.on("wordGuessed", ({ board, currentTurn, score }) => {
       setScore(score);
       setBoard(board);
+      setCurrentTurn(currentTurn);
     });
 
     socket.on("gameOver", ({ board, score, winner }) => {
@@ -60,8 +61,8 @@ const Room = () => {
       <p>Send this link to friends: {window.location.href}</p>
 
       <p>
-        <span className="red">{score.red}</span>-
-        <span className="blue">{score.blue}</span>
+        <span className="pink">{score.pink}</span>-
+        <span className="teal">{score.teal}</span>
       </p>
       {gameOver ? (
         <p>{winner} wins</p>
