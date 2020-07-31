@@ -11,7 +11,6 @@ const port = process.env.PORT || 4001;
 
 const app = express();
 app.use(express.static(path.join(clientPath, "build")));
-console.log(path.join(clientPath, "build"));
 app.use(express.static(path.join(clientPath, "public")));
 app.get("/", function (req, res) {
   res.sendFile(path.join(clientPath, "build", "index.html"));

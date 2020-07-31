@@ -6,7 +6,6 @@ const Game = ({ board, role, socket, room, gameOver }) => {
   const guessWord = (index) => {
     socket.emit("guessWord", index, room);
   };
-  console.log(board);
   return (
     <div className="board">
       {board.map((card, i) => (
