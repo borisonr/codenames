@@ -99,7 +99,7 @@ const Room = () => {
       />
       <label htmlFor="spymaster">Spymaster</label>
 
-      <button class="bigbutton" Click={startNewGame}>New Game</button>
+      <button class="bigbutton" onClick={startNewGame}>New Game</button>
     </div>
   );
 };
