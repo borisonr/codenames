@@ -3,10 +3,12 @@ import "./App.css";
 
 const Card = ({ card, spymaster, guessWord, gameOver }) => {
   const wordClassName = spymaster ? card.category : "";
-  let cardClassName = card.guessed ? `${card.category}-card` : "card";
+  let cardClassName =
+    card.guessed || gameOver ? `${card.category}-card` : "card";
   if (spymaster && card.category === "bomb") cardClassName = "bomb-card";
   return (
     <button
+      key={card.word}
       onClick={guessWord}
       className={cardClassName}
       disabled={gameOver || spymaster}

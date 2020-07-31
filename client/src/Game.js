@@ -6,11 +6,12 @@ const Game = ({ board, role, socket, room, gameOver }) => {
   const guessWord = (index) => {
     socket.emit("guessWord", index, room);
   };
+  console.log(board);
   return (
     <div className="board">
       {board.map((card, i) => (
         <Card
-          key={card.word}
+          key={card.word + Math.random()}
           card={card}
           spymaster={role === "spymaster"}
           guessWord={() => guessWord(i)}

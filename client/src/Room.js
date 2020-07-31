@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
 import Game from "./Game";
-const ENDPOINT = "https://codecademynames.herokuapp.com/";
+const ENDPOINT = "http://127.0.0.1:4001";
 
 const Room = () => {
   const room = window.location.pathname.slice(1);
@@ -17,18 +17,20 @@ const Room = () => {
     const socket = socketIOClient(ENDPOINT);
     setSocket(socket);
     socket.emit("joinRoom", room);
-    socket.on("newPlayer", ({ board, currentTurn, score }) => {
+    socket.on("newPlayer", ({ board, currentTurn, score, winner }) => {
       setBoard(board);
       setScore(score);
       setCurrentTurn(currentTurn);
-      setGameOver(true);
+      setGameOver(!!winner);
       setWinner(winner);
     });
 
-    socket.on("newGame", ({ board, currentTurn, score }) => {
+    socket.on("newGame", ({ board, currentTurn, score, winner }) => {
       setBoard(board);
       setScore(score);
       setCurrentTurn(currentTurn);
+      setGameOver(false);
+      setWinner(winner);
     });
     socket.on("newTurn", ({ currentTurn }) => {
       setCurrentTurn(currentTurn);
@@ -114,7 +116,7 @@ const Room = () => {
           />
           <label htmlFor="spymaster">Spymaster</label>
         </div>
-        <button class="bigbutton" onClick={startNewGame}>
+        <button className="bigbutton" onClick={startNewGame}>
           New Game
         </button>
       </div>
