@@ -41,11 +41,12 @@ const getBoard = (startingTeam, WordOptions) => {
   for (let i = 0; i <= 24; i++) {
     words.push(WordOptions[Math.floor(Math.random() * WordOptions.length)]);
   }
-  return words.map(({ word, url }, i) => ({
+  return words.map(({ word, review_html, content_url }, i) => ({
     word,
     category: boardMap[i],
     guessed: false,
-    url,
+    review_html,
+    content_url,
   }));
 };
 

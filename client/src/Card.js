@@ -3,19 +3,35 @@ import "./App.css";
 
 const Card = ({ card, spymaster, guessWord, gameOver }) => {
   const wordClassName = spymaster ? card.category : "";
-  const cardClassName = card.guessed ? `${card.category}-card` : "card";
+  let cardClassName = card.guessed ? `${card.category}-card` : "card";
+  if (spymaster && card.category === "bomb") cardClassName = "bomb-card";
   return (
     <button
       onClick={guessWord}
       className={cardClassName}
-      disabled={gameOver || spymaster
-      }
+      disabled={gameOver || spymaster}
     >
       <p className={wordClassName}>{card.word}</p>
-      {(card.guessed || gameOver) && (
-        <a href={card.url} target="_blank" rel="noopener noreferrer">
-          Learn more
-        </a>
+      {gameOver && (
+        <>
+          <a
+            href={card.review_html}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            Review Card
+          </a>
+          <br />
+          <a
+            href={card.content_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            Full Lesson
+          </a>
+        </>
       )}
     </button>
   );

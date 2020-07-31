@@ -29,8 +29,8 @@ let WordOptions = [];
 // get words
 fs.createReadStream("./wordbank.csv")
   .pipe(csv())
-  .on("data", ({ word, url }) => {
-    WordOptions.push({ word, url });
+  .on("data", ({ word, review_html, content_url }) => {
+    WordOptions.push({ word, review_html, content_url });
   })
   .on("end", () => {
     console.log("CSV file successfully processed");

@@ -14,7 +14,7 @@ const Home = () => {
         <img
           className="App-logo"
           alt="app logo"
-          src="https://raw.githubusercontent.com/borisonr/codenames/master/client/src/logo_w.png"
+          src="https://raw.githubusercontent.com/borisonr/codenames/main/client/src/logo_w.png"
         />
         <p>
           Play Codenames online across multiple devices on a shapink board. To

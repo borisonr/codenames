@@ -21,6 +21,8 @@ const Room = () => {
       setBoard(board);
       setScore(score);
       setCurrentTurn(currentTurn);
+      setGameOver(true);
+      setWinner(winner);
     });
 
     socket.on("newGame", ({ board, currentTurn, score }) => {
@@ -44,7 +46,7 @@ const Room = () => {
       setScore(score);
     });
     return () => socket.disconnect();
-  }, [room]);
+  }, [room, winner]);
 
   const endTurn = () => {
     socket.emit("endTurn", room);
@@ -54,26 +56,36 @@ const Room = () => {
     socket.emit("newGame", room);
   };
 
-  return (
+  return board.length ? (
     <div className="App">
-      <img src="./logo.svg" />
-      {/* <h1>{room}</h1> */}
-      <p>Send this link to friends: {window.location.href}</p>
-
-      <p>
-        <span className="pink">{score.pink}</span>-
-        <span className="teal">{score.teal}</span>
-      </p>
+      <img
+        src="https://raw.githubusercontent.com/borisonr/codenames/main/client/src/logo_w.png"
+        alt="app logo"
+        className="roomLogo"
+      />
       {gameOver ? (
-        <p>{winner} wins</p>
+        <>
+          <p className={currentTurn}>GAME OVER</p>
+          <p className={currentTurn}>{winner?.toUpperCase()} WINS</p>
+          <p>
+            Learn more about these terms on Codecademy by clicking on the cards'
+            links
+          </p>
+        </>
       ) : (
         <>
-          <p className={currentTurn}>{currentTurn}'s turn</p>
-          <button class="bigbutton" onClick={endTurn}>
+          <p className={currentTurn}>{currentTurn?.toUpperCase()}'S TURN</p>
+          <button className="bigbutton" onClick={endTurn}>
             End {currentTurn}'s turn
           </button>
         </>
       )}
+      <div className="scoreContainer">
+        <p>
+          SCORE: <span className="pink">{score.pink}</span>-
+          <span className="teal">{score.teal}</span>
+        </p>
+      </div>
       <Game
         board={board}
         role={role}
@@ -81,31 +93,35 @@ const Room = () => {
         room={room}
         gameOver={gameOver}
       />
-
-      <input
-        name="player"
-        checked={role === "player"}
-        id="player"
-        onChange={() => setRole("player")}
-        type="radio"
-        disabled={gameOver}
-      />
-      <label htmlFor="player">Player</label>
-      <input
-        type="radio"
-        name="spymaster"
-        checked={role === "spymaster"}
-        id="spymaster"
-        onChange={() => setRole("spymaster")}
-        disabled={gameOver}
-      />
-      <label htmlFor="spymaster">Spymaster</label>
-
-      <button class="bigbutton" onClick={startNewGame}>
-        New Game
-      </button>
+      <div className="boardFooter">
+        <div>
+          <input
+            name="player"
+            checked={role === "player"}
+            id="player"
+            onChange={() => setRole("player")}
+            type="radio"
+            disabled={gameOver}
+          />
+          <label htmlFor="player">Player</label>
+          <input
+            type="radio"
+            name="spymaster"
+            checked={role === "spymaster"}
+            id="spymaster"
+            onChange={() => setRole("spymaster")}
+            disabled={gameOver}
+          />
+          <label htmlFor="spymaster">Spymaster</label>
+        </div>
+        <button class="bigbutton" onClick={startNewGame}>
+          New Game
+        </button>
+      </div>
+      <p className="noMargin">Send this link to friends:</p>
+      <p className="noMargin">{window.location.href}</p>
     </div>
-  );
+  ) : null;
 };
 
 export default Room;

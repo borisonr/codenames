@@ -9,13 +9,16 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.App-header p {
+  width: 40rem;
 }
 
 .App-link {
@@ -38,32 +41,32 @@
   margin: 6px;
   height: 90px;
   width: 135px;
+  background-color: #f6f5fa;
+  color: black;
 }
 
 .board {
-  margin-left: 28%;
-  margin-right: 28%;
+  width: 46rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-items: center;
 }
 
-.red {
+.pink {
   /* using as Brand Pink */
   color: #f288e9;
+  margin: 0;
 }
 
-.blue {
+.teal {
   /* using as Brand Teal */
   color: #4fe0b0;
+  margin: 0;
 }
 
 .neutral {
   color: #f6f5fa;
-}
-
-.bomb {
-  background-color: darkgrey;
 }
 
 .answered {
@@ -75,7 +78,7 @@
   width: 135px;
 }
 
-.red-card {
+.pink-card {
   background-color: #f288e9;
   text-transform: uppercase;
   font-size: 1em;
@@ -85,7 +88,19 @@
   width: 135px;
 }
 
-.blue-card {
+.pink-card .pink {
+  color: white;
+}
+
+.teal-card .teal {
+  color: white;
+}
+
+.neutral-card .neutral {
+  color: white;
+}
+
+.teal-card {
   background-color: #4fe0b0;
   text-transform: uppercase;
   font-size: 1em;
@@ -120,10 +135,46 @@
   position: relative;
   display: inline-block;
   margin: 1em;
-  padding: 1em 1em;
+  padding: 0 1em;
   border: 0;
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
   font-size: 14px;
+  height: 34px;
+}
+
+.roomLogo {
+  height: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 10px;
+}
+
+.boardFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 28%;
+  align-items: center;
+  width: 45rem;
+  margin: 0 auto;
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 46rem;
+  margin: 0 auto;
+  padding-right: 20px;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.link {
+  color: #6400e4;
+  font-size: 12px;
+  text-decoration: none;
 }
