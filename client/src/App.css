@@ -59,16 +59,19 @@
   /* using as Brand Pink */
   color: #f288e9;
   margin: 0;
+  font-weight: bold;
 }
 
 .teal {
   /* using as Brand Teal */
   color: #4fe0b0;
   margin: 0;
+  font-weight: bold;
 }
 
 .neutral {
-  color: #efd9ca;
+  color: #ddaf8f;
+  font-weight: bold;
 }
 
 .answered {
@@ -82,6 +85,7 @@
 
 .pink-card {
   background-color: #f288e9;
+  color: black;
   text-transform: uppercase;
   font-size: 1em;
   border: 0;
@@ -91,19 +95,20 @@
 }
 
 .pink-card .pink {
-  color: white;
+  color: black;
 }
 
 .teal-card .teal {
-  color: white;
+  color: black;
 }
 
 .neutral-card .neutral {
-  color: white;
+  color: black;
 }
 
 .teal-card {
   background-color: #4fe0b0;
+  color: black;
   text-transform: uppercase;
   font-size: 1em;
   border: 0;
@@ -114,6 +119,7 @@
 
 .neutral-card {
   background-color: #efd9ca;
+  color: black;
   text-transform: uppercase;
   font-size: 1em;
   border: 0;
